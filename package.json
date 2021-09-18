@@ -16,7 +16,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=true",
-    "test:ci": "react-scripts test --ci --reporters='default' --reporters='./github-actions-reporter'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
