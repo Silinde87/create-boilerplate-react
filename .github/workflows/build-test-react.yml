@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # We use this block to specify node versions
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 15.x]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:          
+      # This specify node version
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}    
+          
+      # This specify the build and test commands we want to run
+      - name: npm ci, build and test
+        run: |
+          npm ci
+          npm run build --if-present
+          npm test          
