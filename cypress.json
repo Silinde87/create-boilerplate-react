@@ -1,6 +1,6 @@
 {
     "integrationFolder": "src",
-    "testFiles": "**/*.e2e.test.js",
+    "testFiles": "**/*.e2e.js",
     "video": false,
     "chromeWebSecurity": false
 }
