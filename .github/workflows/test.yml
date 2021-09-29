@@ -20,9 +20,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: rm-rf node_modules, install and test 🚧
+      - name: install and test 🚧
         run: 
-          yarn install
+          rm -rf node_modules && yarn install
           yarn test
       - name: Tests ✅
         if: ${{ success() }}

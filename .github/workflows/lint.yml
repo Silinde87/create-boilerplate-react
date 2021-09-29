@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,8 +20,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: rm -rf node_modules, install and lint
+      - name: install and lint
         run: 
-          yarn install
+          rm -rf node_modules && yarn install
           yarn lint      
       
