@@ -22,6 +22,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install and lint
         run: 
-          rm -rf node_modules && yarn install
+          yarn add
           yarn lint      
       
