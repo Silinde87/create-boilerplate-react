@@ -1,35 +1,28 @@
-name: Build and Test React Application
-
-# Controls when the action will run. 
+name: Test React Application
+ 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_test:
-    # The type of runner that the job will run on
+  unit-test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [14.x, 16.x]
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm i, build and unit test 🚧
-        run: |
-          yarn install
-          yarn build --if-present
+      - name: install and test 🚧
+        run: 
+          yarn add
           yarn test
       - name: Tests ✅
         if: ${{ success() }}
@@ -48,17 +41,5 @@ jobs:
             "state": "failure",
             "description": "Tests failed",
             "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          }'
-  cypress-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          build: yarn build --if-present
-          start: yarn start        
+          }'   
       
