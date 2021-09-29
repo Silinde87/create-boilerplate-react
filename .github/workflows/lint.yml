@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build_test:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,6 +22,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: rm -rf node_modules, install and lint
         run: 
-          rm -rf node_modules && yarn install
+          yarn install
           yarn lint      
       

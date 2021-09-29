@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build_test:
+  unit-test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: rm-rf node_modules, install and test 🚧
         run: 
-          rm -rf node_modules && yarn install
+          yarn install
           yarn test
       - name: Tests ✅
         if: ${{ success() }}
