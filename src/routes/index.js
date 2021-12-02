@@ -1,12 +1,12 @@
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../globals/constants';
 import Home from './home';
 
 function App() {
   return (
-    <>
-      <Route component={Home} exact path={ROUTES.HOME} />
-    </>
+    <Routes>
+      <Route exact path={ROUTES.HOME} element={<Home />} />
+    </Routes>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './routes';
 import GlobalStyles from './GlobalStyles';
 import ContextStore from './context/ContextStore';
@@ -14,11 +14,9 @@ ReactDOM.render(
     <ContextStore>
       <ContextConsumer>
         {() => (
-          <Router>
-            <Switch>
-              <App />
-            </Switch>
-          </Router>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         )}
       </ContextConsumer>
     </ContextStore>
