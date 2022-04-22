@@ -1,14 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './routes';
 import GlobalStyles from './GlobalStyles';
 import ContextStore from './context/ContextStore';
 import { ContextConsumer } from './context/Context';
 
-const rootNode = document.getElementById('root');
+const root = createRoot(document.getElementById('root'));
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <GlobalStyles />
     <ContextStore>
@@ -20,6 +20,5 @@ ReactDOM.render(
         )}
       </ContextConsumer>
     </ContextStore>
-  </React.StrictMode>,
-  rootNode
+  </React.StrictMode>
 );
