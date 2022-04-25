@@ -17,7 +17,7 @@ const repoName = process.argv[2];
 const gitCheckoutCommand = `git clone --depth 1 https://github.com/Silinde87/create-boilerplate-react ${repoName}`;
 const installDepsCommand = `cd ${repoName} && yarn install`;
 const removeBinCommand = `cd ${repoName} && rm -rf bin`
-const gitCommand = `git add . && git commit -m "Repository ${repoName} created`
+const gitCommand = `git add . && git commit -m "Repository ${repoName} created"`
 
 // Cloning repository
 console.log(`Cloning the repository with name ${repoName}`);

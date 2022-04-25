@@ -1,7 +1,7 @@
 {
   "name": "create-boilerplate-react",
   "description": "Template for any React project that includes Context already configured. Github actions and Cypres/Jest testing.",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "keywords": [
     "react",
     "react.js",
