@@ -1,7 +1,7 @@
 {
   "name": "create-react-boilerplate",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.16.4",
