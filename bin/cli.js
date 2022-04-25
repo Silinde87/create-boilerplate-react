@@ -12,7 +12,7 @@ const runCommand = command => {
     return true;
 }
 
-const repoName = process.argvs[2];
+const repoName = process.argv[2];
 const gitCheckoutCommand = `git clone --depth 1 https://github.com/Silinde87/create-boilerplate-react ${repoName}`;
 const installDepsCommand = `cd ${repoName} && npm install`;
 
