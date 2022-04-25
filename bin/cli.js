@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
 const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
 
 const runCommand = command => {
     try {
@@ -19,21 +20,18 @@ const installDepsCommand = `cd ${repoName} && yarn install`;
 const removeBinCommand = `cd ${repoName} && rm -rf bin`
 const gitCommand = `cd ${repoName} && git add . && git commit -m "Repository ${repoName} created"`
 
+const rootDir = path.join(__dirname, '..');
+const packagesDir = path.join(rootDir, 'packages');
+const packageJsonFile = path.join(packagesDir, 'package.json');
+
 // Cloning repository
 console.log(`Cloning the repository with name ${repoName}`);
 const checkedOut = runCommand(gitCheckoutCommand);
 if(!checkedOut) process.exit(-1);
 
-// Setting default package.json and add cli.js to gitignore
-const keysToDelete = ['description', 'author', 'license', 'repository', 'bin', 'keywords'];
-const packageJSON = JSON.parse(fs.readFileSync(`./${repoName}/package.json`, 'utf8'));
+// Setting default package.json
+const packageJSON = JSON.parse(fs.readFileSync(packageJsonFile, 'utf8'));
 packageJSON.name = repoName;
-packageJSON.version = "0.1.0";
-packageJSON.private = true;
-keysToDelete.forEach(key => delete packageJSON[key]);
-fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
-
-fs.appendFileSync(`./${repoName}/.gitignore`, '/bin/cli.js');
 
 // Committing changes
 const changesCommited = runCommand(gitCommand);
