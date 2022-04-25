@@ -33,7 +33,7 @@ packageJSON.private = true;
 keysToDelete.forEach(key => delete packageJSON[key]);
 fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
 
-fs.appendFileSync(`./.gitignore`, '/bin/cli.js');
+fs.appendFileSync(`./${repoName}/.gitignore`, '/bin/cli.js');
 
 // Committing changes
 const changesCommited = runCommand(gitCommand);
