@@ -24,7 +24,7 @@ const checkedOut = runCommand(gitCheckoutCommand);
 if(!checkedOut) process.exit(-1);
 
 // Changing app name at package.json
-const packageJSON = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
+const packageJSON = JSON.parse(fs.readFileSync(`./${repoName}/package.json`, 'utf8'));
 packageJSON.name = repoName;
 fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
 
