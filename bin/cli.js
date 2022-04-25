@@ -26,7 +26,7 @@ if(!checkedOut) process.exit(-1);
 // Changing app name at package.json
 const packageJSON = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
 packageJSON.name = repoName;
-fs.writeFileSync('../package.json', JSON.stringify(packageJSON, null, 2));
+fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
 
 // Installing dependencies
 console.log(`Installing dependencies for ${repoName}`);
