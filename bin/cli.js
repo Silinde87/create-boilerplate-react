@@ -24,7 +24,7 @@ console.log(`Cloning the repository with name ${repoName}`);
 const checkedOut = runCommand(gitCheckoutCommand);
 if(!checkedOut) process.exit(-1);
 
-// Setting default package.json
+// Setting default package.json and add cli.js to gitignore
 const keysToDelete = ['description', 'author', 'license', 'repository', 'bin', 'keywords'];
 const packageJSON = JSON.parse(fs.readFileSync(`./${repoName}/package.json`, 'utf8'));
 packageJSON.name = repoName;
@@ -32,6 +32,8 @@ packageJSON.version = "0.1.0";
 packageJSON.private = true;
 keysToDelete.forEach(key => delete packageJSON[key]);
 fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
+
+fs.appendFileSync(`./.gitignore`, '/bin/cli.js');
 
 // Committing changes
 const changesCommited = runCommand(gitCommand);
