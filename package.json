@@ -1,6 +1,6 @@
 {
-  "name": "react-github-actions",
-  "version": "0.1.0",
+  "name": "create-react-boilerplate",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/cypress": "^8.0.2",
