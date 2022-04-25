@@ -1,6 +1,6 @@
 {
   "name": "create-boilerplate-react",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "bin": "./bin/cli.js",
   "dependencies": {
     "@testing-library/cypress": "^8.0.2",
