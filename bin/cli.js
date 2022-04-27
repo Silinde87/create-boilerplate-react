@@ -14,28 +14,40 @@ const runCommand = (command) => {
 	return true;
 };
 
-//1- Subir el repo tal cual está en otro repo
-//2- git clone con sparse-checkout para descargar solo carpeta packages de ese nuevo repo
-////https://git-scm.com/docs/git-sparse-checkout
-////https://github.community/t/how-can-i-download-a-specific-folder-from-a-github-repo/278
-
 const repoName = process.argv[2];
-const gitCheckoutCommand = `git clone --depth 1 https://github.com/Silinde87/create-boilerplate-react ${repoName}`;
-const installDepsCommand = `cd ${repoName} && yarn install`;
+const repoUrl = 'https://github.com/Silinde87/create-boilerplate-react';
 
-const rootDir = path.join(__dirname, '..');
-const packagesDir = path.join(rootDir, 'packages');
-const packageJsonFile = path.join(packagesDir, 'package.json');
+const gitCheckoutCommand = `
+	git clone --filter=blob:none --no-checkout ${repoUrl} ${repoName} &&
+	cd ${repoName} &&
+	git sparse-checkout init &&
+	git sparse-checkout set /packages/* &&
+	git read-tree -mu HEAD &&
+	mv ./packages/{*,.[^.]*}  ./ &&
+	rm -rf ./packages
+`;
+const gitCommitCommand = `
+	cd ${repoName} &&
+	git add . && git commit -m "Repository created"
+`;
+const installDepsCommand = `cd ${repoName} && yarn install`;
 
 // Cloning repository
 const checkedOut = runCommand(gitCheckoutCommand);
 if (!checkedOut) process.exit(-1);
+
+const rootDir = path.join(__dirname, '..');
+const packagesDir = path.join(rootDir, 'packages');
+const packageJsonFile = path.join(packagesDir, 'package.json');
 
 // Setting default package.json
 const packageJSON = JSON.parse(fs.readFileSync(packageJsonFile, 'utf8'));
 packageJSON.name = repoName;
 fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
 
+// Commiting changes
+const committed = runCommand(gitCommitCommand);
+if (!committed) process.exit(-1);
 
 // Installing dependencies
 console.log(`Installing dependencies for ${repoName}`);
