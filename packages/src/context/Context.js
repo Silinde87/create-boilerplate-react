@@ -1,8 +1,13 @@
-import { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
 
 const ReactContext = createContext();
 
-export const ContextProvider = ReactContext.Provider;
-export const ContextConsumer = ReactContext.Consumer;
-export const useReactContext = () => useContext(ReactContext);
-export default ReactContext;
+const useReactContext = () => {
+  const context = React.useContext(ReactContext);
+  if (!context) {
+    throw new Error('useReactContext must be used within a ReactContextProvider');
+  }
+  return context;
+};
+
+export { ReactContext, useReactContext };
