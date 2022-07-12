@@ -26,10 +26,7 @@ const gitCheckoutCommand = `
 	mv ./packages/{*,.[^.]*}  ./ &&
 	rm -rf ./packages
 `;
-const gitCommitCommand = `
-	cd ${repoName} &&
-	git add . && git commit -m "Repository created"
-`;
+const gitRemoveCommand = `cd ${repoName} && rm -rf .git`;
 const installDepsCommand = `cd ${repoName} && yarn install`;
 
 // Cloning repository
@@ -45,14 +42,14 @@ const packageJSON = JSON.parse(fs.readFileSync(packageJsonFile, 'utf8'));
 packageJSON.name = repoName;
 fs.writeFileSync(`./${repoName}/package.json`, JSON.stringify(packageJSON, null, 2));
 
-// Commiting changes
-const committed = runCommand(gitCommitCommand);
+// Removing git
+const committed = runCommand(gitRemoveCommand);
 if (!committed) process.exit(-1);
 
 // Installing dependencies
-console.log(`Installing dependencies for ${repoName}`);
+console.log('\x1b[32m', `Installing dependencies for ${repoName}`);
 const installedDeps = runCommand(installDepsCommand);
 if (!installedDeps) process.exit(-1);
 
-console.log(`Congratulations! You are ready. Follow the following commands to start`);
-console.log(`cd ${repoName} && yarn start`);
+console.log('\x1b[32m', `Congratulations 🎉! You are ready. Use the following commands to start:`);
+console.log('\x1b[36m', `cd ${repoName} && yarn start`);
